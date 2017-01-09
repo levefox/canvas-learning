@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+
+</head>
+<style>
+    body {
+        background: #000;
+    }
+    canvas {
+        background: #fff;
+    }
+    label {
+        color: #fff;
+    }
+</style>
+<body role="0">
+    <input id="colorPick" type="color" />
+    <input type="checkbox" id="eraser" /><label for="eraser">橡皮擦</label>
+    <canvas id="c1"></canvas>
+</body>
+<script>
+window.onload = function(){
+    var lineColor = '#000';
+    var oCP = document.getElementById('colorPick');
+    var oCer = document.getElementById('eraser');
+    oCP.onchange = function(){
+        lineColor = this.value;
+    };
+    var oC = document.getElementById('c1');
+    var oGC = oC.getContext('2d');
+    oC.width = '400';   //不能带单位
+    oC.height = '400';  //不能带单位
+    oC.onmousedown = function(e){
+        var e = e||window.event;
+        var eX = e.clientX-oC.offsetLeft,eY = e.clientY-oC.offsetTop;
+        if(!oCer.checked){
+            oGC.beginPath();    //没有这个，绘制效果会覆盖
+            oGC.moveTo(eX,eY);
+            oC.onmousemove = function(e) {
+                var e = e||window.event;
+                var eX = e.clientX-oC.offsetLeft,eY = e.clientY-oC.offsetTop;
+                oGC.strokeStyle = lineColor;
+                oGC.lineTo(eX,eY);
+                oGC.stroke();
+            }
+        }else{
+            oC.onmousemove = function(e) {
+                var e = e||window.event;
+                var eX = e.clientX-oC.offsetLeft,eY = e.clientY-oC.offsetTop;
+                oGC.clearRect(eX-10,eY-10,20,20);
+            }
+        }
+        oC.onmouseup = function(){
+            oC.onmousemove = null;
+            oC.onmouseup = null;
+        }
+    }
+}
+</script>
+</html>

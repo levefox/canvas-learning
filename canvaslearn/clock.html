@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<style>
+
+</style>
+<body role="0">
+    <canvas id="c1"></canvas>
+</body>
+<script>
+window.onload = function(){
+    var oC = document.getElementById('c1');
+    var oGC = oC.getContext('2d');
+    oC.width = '400';   //不能带单位
+    oC.height = '400';  //不能带单位
+
+    function drawClock(){
+        var x=y=200, r = 150;
+        //画最外圈
+        oGC.arc(x,y,r,0,2*Math.PI,false);
+        oGC.stroke();
+        //画分刻度
+        oGC.beginPath();
+        oGC.strokeStyle = '#333';
+        for(var i=0;i<60;i++){
+            oGC.moveTo(x,y);
+            oGC.arc(x,y,r*0.98,i*Math.PI/30,(i+1)*Math.PI/30,false);
+        }
+        oGC.stroke();
+        //覆盖白色表盘
+        oGC.beginPath();
+        oGC.fillStyle= '#fff';
+        oGC.arc(x,y,r*0.95,0,2*Math.PI,false);
+        oGC.fill();
+        //画时刻度
+        oGC.beginPath();
+        oGC.strokeStyle = '#333';
+        oGC.lineWidth = 2;
+        for(var i=0;i<12;i++){
+            oGC.moveTo(x,y);
+            oGC.arc(x,y,r*0.98,i*Math.PI/6,(i+1)*Math.PI/6,false);
+        }
+        oGC.stroke();
+        //覆盖白色边框
+        oGC.beginPath();
+        oGC.strokeStyle = '#fff';
+        oGC.lineWidth = '3';
+        oGC.arc(x,y,r*0.98,0,2*Math.PI,false);
+        oGC.stroke();
+        //覆盖白色表盘
+        oGC.beginPath();
+        oGC.fillStyle= '#fff';
+        oGC.arc(x,y,r*0.9,0,2*Math.PI,false);
+        oGC.fill();
+        //画时针
+        oGC.beginPath();
+        oGC.moveTo(x,y);
+        oGC.lineTo();
+    }
+
+    drawClock();
+}
+</script>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+
+</head>
+<body role="0">
+<canvas id="c1"></canvas>
+</body>
+<script>
+window.onload = function(){
+    var oC = document.getElementById('c1');
+    var oGC = oC.getContext('2d');
+    oC.width = '400';   //不能带单位
+    oC.height = '400';  //不能带单位
+
+    oGC.save(); //保存画布，避免冲突
+    oGC.fillStyle = '#999';
+    oGC.strokeStyle = '#ddd';
+    oGC.lineWidth = '10';   //不能带单位,绘制边框是由中心向两侧，即左右各5像素
+    oGC.lineJoin = 'round'; //'miter'默认，'round'圆角，'bevel'斜角
+    /*绘制有顺序，不同顺序，层叠不同*/
+    // oGC.fillRect(50,50,100,100);
+    // oGC.strokeRect(50,50,100,100);    //.5是避免绘制产生2像素的边框
+    oGC.strokeRect(50,50,100,100);
+    oGC.fillRect(50,50,100,100);
+    oGC.restore();  //重置画布
+
+    //绘制路径
+    oGC.save();
+    oGC.strokeStyle = '#999';
+    oGC.fillStyle = '#ddd';
+    oGC.lineWidth = '4';
+    oGC.beginPath();
+    oGC.moveTo(10,10);
+    oGC.lineTo(100,30);
+    // oGC.lineTo(100,10);
+    oGC.closePath();
+    oGC.stroke();
+    oGC.fill();
+    oGC.restore();
+
+    oGC.save();
+    oGC.lineWidth = '10';
+    oGC.lineCap = 'round';  //butt 默认，round 圆角，square 方形
+    oGC.beginPath();
+    oGC.moveTo(110,200);
+    oGC.lineTo(210,200);
+    oGC.stroke();
+
+
+
+
+}
+</script>
+</html>
