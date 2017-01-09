@@ -57,8 +57,25 @@ window.onload = function(){
         oGC.fill();
         //画时针
         oGC.beginPath();
+        oGC.lineWidth = 3;
+        oGC.strokeStyle = '#333';
         oGC.moveTo(x,y);
-        oGC.lineTo();
+        oGC.arc(x,y,r*0.5,-Math.PI/2,-Math.PI/2,false);
+        oGC.stroke();
+        //画分针
+        oGC.beginPath();
+        oGC.lineWidth = 2;
+        oGC.strokeStyle = '#333';
+        oGC.moveTo(x,y);
+        oGC.arc(x,y,r*0.7,-Math.PI/2,-Math.PI/2,false);
+        oGC.stroke();
+        //画秒针
+        oGC.beginPath();
+        oGC.lineWidth = 1;
+        oGC.strokeStyle = '#333';
+        oGC.moveTo(x,y);
+        oGC.arc(x,y,r*0.8,-Math.PI/2,-Math.PI/2,false);
+        oGC.stroke();
     }
 
     drawClock();
