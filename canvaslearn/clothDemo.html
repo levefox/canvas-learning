@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+
+</head>
+<style>
+    body {
+        background: #000;
+    }
+    #c1 {
+        background: #fff;
+    }
+    label {
+        color: #fff;
+    }
+</style>
+<body role="0">
+    <div id="colorController">
+        <label for="leftHand">左袖子</label><input type="color" id="leftHand" />
+        <label for="rightHand">右袖子</label><input type="color" id="rightHand" />
+        <label for="leftCollar">左领子</label><input type="color" id="leftCollar" />
+        <label for="rightCollar">右领子</label><input type="color" id="rightCollar" />
+        <label for="chest">胸口</label><input type="color" id="chest" />
+        <label for="balley">腹部</label><input type="color" id="balley" />
+        <label for="lower">下摆</label><input type="color" id="lower" />
+    </div>
+    <canvas id="c1"></canvas>
+</body>
+<script>
+window.onload = function(){
+    var colorControls = document.getElementById('colorController').getElementsByTagName('input');
+    var oC = document.getElementById('c1');
+    var oGC = oC.getContext('2d');
+    oC.width = '400';   //不能带单位
+    oC.height = '400';  //不能带单位
+    var fillDefault = '#fff';
+    var colorArr = [];
+    colorArr.length = colorControls.length;
+
+    function fillCloth(color,index){
+        oGC.strokeStyle = '#000';
+        colorArr[index] = color;
+
+        //左袖
+        oGC.beginPath();
+        oGC.fillStyle = colorArr[0]||fillDefault;
+        oGC.moveTo(138,88);
+        oGC.lineTo(72,160);
+        oGC.lineTo(102,210);
+        oGC.lineTo(138,160);
+        oGC.closePath();
+        oGC.fill();
+        oGC.stroke();
+        //右袖
+        oGC.beginPath();
+        oGC.fillStyle = colorArr[1]||fillDefault;
+        oGC.moveTo(244,88);
+        oGC.lineTo(308,160);
+        oGC.lineTo(280,210);
+        oGC.lineTo(244,160);
+        oGC.closePath();
+        oGC.fill();
+        oGC.stroke();
+        //前胸
+        oGC.beginPath();
+        oGC.fillStyle = colorArr[4]||fillDefault;
+        oGC.moveTo(138,88);
+        oGC.rect(138,88,106,72);
+        oGC.fill();
+        oGC.stroke();
+        //腹部
+        oGC.beginPath();
+        oGC.fillStyle = colorArr[5]||fillDefault;
+        oGC.moveTo(138,160);
+        oGC.rect(138,160,106,72);
+        oGC.fill();
+        oGC.stroke();
+        //下摆
+        oGC.beginPath();
+        oGC.fillStyle = colorArr[6]||fillDefault;
+        oGC.moveTo(138,232);
+        oGC.rect(138,232,106,72);
+        oGC.fill();
+        oGC.stroke();
+        //左领
+        oGC.beginPath();
+        oGC.fillStyle = colorArr[2]||fillDefault;
+        oGC.moveTo(166,75);
+        oGC.lineTo(157,88);
+        oGC.lineTo(188,97);
+        oGC.lineTo(193,88);
+        oGC.closePath();
+        oGC.fill();
+        oGC.stroke();
+        //右领
+        oGC.beginPath();
+        oGC.fillStyle = colorArr[3]||fillDefault;
+        oGC.moveTo(220,75);
+        oGC.lineTo(193,88);
+        oGC.lineTo(198,97);
+        oGC.lineTo(229,88);
+        oGC.closePath();
+        oGC.fill();
+        oGC.stroke();
+        //补领口背后曲线
+        oGC.beginPath();
+        oGC.moveTo(166,75);
+        oGC.quadraticCurveTo(193,85,220,75);
+        oGC.stroke();
+
+    }
+    fillCloth();
+
+    document.getElementById('leftHand').onchange = function(){
+        var leftHandColor = this.value;
+        fillCloth(leftHandColor,0);
+    }
+    document.getElementById('rightHand').onchange = function(){
+        var rightHandColor = this.value;
+        fillCloth(rightHandColor,1);
+    }
+    document.getElementById('leftCollar').onchange = function(){
+        var leftCollarColor = this.value;
+        fillCloth(leftCollarColor,2);
+    }
+    document.getElementById('rightCollar').onchange = function(){
+        var rightCollarColor = this.value;
+        fillCloth(rightCollarColor,3);
+    }
+    document.getElementById('chest').onchange = function(){
+        var chestColor = this.value;
+        fillCloth(chestColor,4);
+    }
+    document.getElementById('balley').onchange = function(){
+        var balleyColor = this.value;
+        fillCloth(balleyColor,5);
+    }
+    document.getElementById('lower').onchange = function(){
+        var lowerColor = this.value;
+        fillCloth(lowerColor,6);
+    }
+
+}
+</script>
+</html>
