@@ -1,102 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
     <title></title>
-</head>
-<style>
+  </head>
+  <style></style>
+  <body role="0">
+    <canvas id="c1">edit22</canvas>
+  </body>
+  <script>
+    window.onload = function () {
+      var oC = document.getElementById("c1");
+      var oGC = oC.getContext("2d");
+      oC.width = "400"; //不能带单位
+      oC.height = "400"; //不能带单位
 
-</style>
-<body role="0">
-    <canvas id="c1"></canvas>
-</body>
-<script>
-window.onload = function(){
-    var oC = document.getElementById('c1');
-    var oGC = oC.getContext('2d');
-    oC.width = '400';   //不能带单位
-    oC.height = '400';  //不能带单位
-
-    function drawClock(){
-        var x=y=200, r = 150;
+      function drawClock() {
+        var x = (y = 200),
+          r = 150;
         //画最外圈
-        oGC.arc(x,y,r,0,2*Math.PI,false);
+        oGC.arc(x, y, r, 0, 2 * Math.PI, false);
         oGC.stroke();
         //画分刻度
         oGC.beginPath();
-        oGC.strokeStyle = '#333';
-        for(var i=0;i<60;i++){
-            oGC.moveTo(x,y);
-            oGC.arc(x,y,r*0.98,i*Math.PI/30,(i+1)*Math.PI/30,false);
+        oGC.strokeStyle = "#333";
+        for (var i = 0; i < 60; i++) {
+          oGC.moveTo(x, y);
+          oGC.arc(
+            x,
+            y,
+            r * 0.98,
+            (i * Math.PI) / 30,
+            ((i + 1) * Math.PI) / 30,
+            false
+          );
         }
         oGC.stroke();
         //覆盖白色表盘
         oGC.beginPath();
-        oGC.fillStyle= '#fff';
-        oGC.arc(x,y,r*0.95,0,2*Math.PI,false);
+        oGC.fillStyle = "#fff";
+        oGC.arc(x, y, r * 0.95, 0, 2 * Math.PI, false);
         oGC.fill();
         //画时刻度
         oGC.beginPath();
-        oGC.strokeStyle = '#333';
+        oGC.strokeStyle = "#333";
         oGC.lineWidth = 2;
-        for(var i=0;i<12;i++){
-            oGC.moveTo(x,y);
-            oGC.arc(x,y,r*0.98,i*Math.PI/6,(i+1)*Math.PI/6,false);
+        for (var i = 0; i < 12; i++) {
+          oGC.moveTo(x, y);
+          oGC.arc(
+            x,
+            y,
+            r * 0.98,
+            (i * Math.PI) / 6,
+            ((i + 1) * Math.PI) / 6,
+            false
+          );
         }
         oGC.stroke();
         //覆盖白色边框
         oGC.beginPath();
-        oGC.strokeStyle = '#fff';
-        oGC.lineWidth = '3';
-        oGC.arc(x,y,r*0.98,0,2*Math.PI,false);
+        oGC.strokeStyle = "#fff";
+        oGC.lineWidth = "3";
+        oGC.arc(x, y, r * 0.98, 0, 2 * Math.PI, false);
         oGC.stroke();
 
-        function runClock(){
-            var nowTime = new Date();
-            var nowHour = nowTime.getHours();
-            var nowMin = nowTime.getMinutes();
-            var nowSec = nowTime.getSeconds();
-            var hourl = ((nowHour/12+1/12*nowMin/60+1/12*1/60*nowSec/60)*360-90)*Math.PI/180;
-            var minl = ((nowMin/60+1/60*nowSec/60)*360-90)*Math.PI/180;
-            var secl = (nowSec/60*360-90)*Math.PI/180;
-            if(nowHour>12){
-                nowHour = nowHour-12;
-            }
-            //覆盖白色表盘
-            oGC.beginPath();
-            oGC.fillStyle= '#fff';
-            oGC.arc(x,y,r*0.9,0,2*Math.PI,false);
-            oGC.fill();
-            //画时针
-            oGC.beginPath();
-            oGC.lineWidth = 3;
-            oGC.strokeStyle = '#333';
-            oGC.moveTo(x,y);
-            oGC.arc(x,y,r*0.5,hourl,hourl,false);
-            oGC.stroke();
-            //画分针
-            oGC.beginPath();
-            oGC.lineWidth = 2;
-            oGC.strokeStyle = '#333';
-            oGC.moveTo(x,y);
-            oGC.arc(x,y,r*0.7,minl,minl,false);
-            oGC.stroke();
-            //画秒针
-            oGC.beginPath();
-            oGC.lineWidth = 1;
-            oGC.strokeStyle = '#333';
-            oGC.moveTo(x,y);
-            oGC.arc(x,y,r*0.8,secl,secl,false);
-            oGC.stroke();
+        function runClock() {
+          var nowTime = new Date();
+          var nowHour = nowTime.getHours();
+          var nowMin = nowTime.getMinutes();
+          var nowSec = nowTime.getSeconds();
+          var hourl =
+            (((nowHour / 12 +
+              ((1 / 12) * nowMin) / 60 +
+              ((((1 / 12) * 1) / 60) * nowSec) / 60) *
+              360 -
+              90) *
+              Math.PI) /
+            180;
+          var minl =
+            (((nowMin / 60 + ((1 / 60) * nowSec) / 60) * 360 - 90) * Math.PI) /
+            180;
+          var secl = (((nowSec / 60) * 360 - 90) * Math.PI) / 180;
+          if (nowHour > 12) {
+            nowHour = nowHour - 12;
+          }
+          //覆盖白色表盘
+          oGC.beginPath();
+          oGC.fillStyle = "#fff";
+          oGC.arc(x, y, r * 0.9, 0, 2 * Math.PI, false);
+          oGC.fill();
+          //画时针
+          oGC.beginPath();
+          oGC.lineWidth = 3;
+          oGC.strokeStyle = "#333";
+          oGC.moveTo(x, y);
+          oGC.arc(x, y, r * 0.5, hourl, hourl, false);
+          oGC.stroke();
+          //画分针
+          oGC.beginPath();
+          oGC.lineWidth = 2;
+          oGC.strokeStyle = "#333";
+          oGC.moveTo(x, y);
+          oGC.arc(x, y, r * 0.7, minl, minl, false);
+          oGC.stroke();
+          //画秒针
+          oGC.beginPath();
+          oGC.lineWidth = 1;
+          oGC.strokeStyle = "#333";
+          oGC.moveTo(x, y);
+          oGC.arc(x, y, r * 0.8, secl, secl, false);
+          oGC.stroke();
         }
         runClock();
-        setInterval(function(){
-            runClock();
-        },1000);
+        setInterval(function () {
+          runClock();
+        }, 1000);
+      }
 
-    }
-
-    drawClock();
-}
-</script>
+      drawClock();
+    };
+  </script>
 </html>
